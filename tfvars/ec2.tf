@@ -1,12 +1,12 @@
 resource "aws_instance" "expense" {
     for_each = var.instance_names
-    ami = data.aws_ami.ami_info
+    ami = data.aws_ami.ami_info.id
     instance_type = each.value
     vpc_security_group_ids = ["sg-0111cc2113f4bb682"]
     tags = merge(
         var.common_tags,{
-            Name = "${each.key}.${var.environment}"
-            Module = "${each.key}.${var.environment}"
+            Name = each.key
+            Module = each.key
         }
 
     )
